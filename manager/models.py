@@ -41,9 +41,15 @@ class Team(models.Model):
 
 
 class Worker(AbstractUser):
-    position = models.ForeignKey(Position, on_delete=models.CASCADE)
-    task_completed = models.ManyToManyField("Task", related_name="completed_by", blank=True)
-    tasks_not_completed = models.ManyToManyField("Task", related_name="not_completed_by", blank=True)
+    position = models.ForeignKey(
+        Position, on_delete=models.CASCADE, blank=True, null=True
+    )
+    task_completed = models.ManyToManyField(
+        "Task", related_name="completed_by", blank=True
+    )
+    tasks_not_completed = models.ManyToManyField(
+        "Task", related_name="not_completed_by", blank=True
+    )
 
     def __str__(self):
         return f"{self.username} ({self.first_name}, {self.last_name})"
@@ -65,7 +71,10 @@ class Task(models.Model):
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assigned = models.ManyToManyField(Worker, related_name="assigned_tasks")
     tags = models.ManyToManyField(Tag, related_name="tasks", blank=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="tasks", null=True, blank=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE,
+        related_name="tasks", null=True, blank=True
+    )
 
     def __str__(self):
         return self.name
