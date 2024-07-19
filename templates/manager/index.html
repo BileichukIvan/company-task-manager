@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>IT company task manager</h1>
+    <p>Welcome to Best Company Ever!</p>
+    <h2>Dynamic content</h2>
+    <p>The company task manager has the following record counts:</p>
+    <ul>
+        <li><strong>Tasks:</strong> {{ num_task }}</li>
+        <li><strong>Workers:</strong> {{ num_worker }}</li>
+        <li><strong>Projects:</strong> {{ num_projects }}</li>
+    </ul>
+
+{% endblock %}
