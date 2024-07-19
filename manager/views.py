@@ -2,11 +2,7 @@ from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import (
-    render,
-    redirect,
-    get_object_or_404
-)
+from django.shortcuts import render
 
 from .models import (
     Task,
@@ -85,11 +81,3 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("manager:task-list")
-
-
-# Mark task as complete
-def mark_task_complete(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.is_completed = True
-    task.save()
-    return redirect("manager:task-list")
