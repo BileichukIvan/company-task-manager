@@ -38,3 +38,14 @@ class WorkerCreationForm(UserCreationForm):
             "email",
             "position",
         )
+
+
+class WorkerForm(forms.ModelForm):
+    class Meta:
+        model = Worker
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+            "position",
+        )

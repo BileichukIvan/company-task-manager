@@ -13,6 +13,7 @@ from .forms import (
     TaskForm,
     TaskSearchForm,
     WorkerCreationForm,
+    WorkerForm,
 )
 
 
@@ -102,3 +103,13 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("manager:worker-list")
     form_class = WorkerCreationForm
 
+
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("manager:worker-list")
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    form_class = WorkerForm
+    success_url = reverse_lazy("manager:worker-list")
