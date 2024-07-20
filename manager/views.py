@@ -9,7 +9,11 @@ from .models import (
     Worker,
     Project,
 )
-from .forms import TaskForm, TaskSearchForm
+from .forms import (
+    TaskForm,
+    TaskSearchForm,
+    WorkerCreationForm,
+)
 
 
 @login_required
@@ -91,3 +95,10 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
+
+
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Worker
+    success_url = reverse_lazy("manager:worker-list")
+    form_class = WorkerCreationForm
+
