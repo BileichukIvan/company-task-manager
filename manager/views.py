@@ -81,3 +81,13 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("manager:task-list")
+
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
+    model = Worker
+    paginate_by = 5
+    context_object_name = "workers"
+
+
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker

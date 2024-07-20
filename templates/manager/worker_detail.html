@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Worker Detail</h1>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ worker.username }}</h5>
+        <p class="card-text"><strong>First Name:</strong> {{ worker.first_name }}</p>
+        <p class="card-text"><strong>Last Name:</strong> {{ worker.last_name }}</p>
+        <p class="card-text"><strong>Email:</strong> {{ worker.email }}</p>
+        <p class="card-text"><strong>Position:</strong>
+          {% if worker.position %}
+            {{ worker.position.name }}
+          {% else %}
+            No Position
+          {% endif %}
+        </p>
+        <h6 class="card-subtitle mb-2 text-muted">Completed Tasks</h6>
+        <ul>
+          {% for task in worker.task_completed.all %}
+            <li>{{ task.name }}</li>
+          {% empty %}
+            <li>No completed tasks</li>
+          {% endfor %}
+        </ul>
+        <h6 class="card-subtitle mb-2 text-muted">Not Completed Tasks</h6>
+        <ul>
+          {% for task in worker.tasks_not_completed.all %}
+            <li>{{ task.name }}</li>
+          {% empty %}
+            <li>No tasks in progress</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <a href="{% url 'manager:worker-list' %}" class="btn btn-secondary mt-3">Back to Workers List</a>
+  </div>
+{% endblock %}
