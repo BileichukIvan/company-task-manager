@@ -159,18 +159,21 @@ class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
 
 
-class TeamCreateView(generic.CreateView):
+class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
     success_url = reverse_lazy('manager:team-list')
 
 
-class TeamUpdateView(generic.UpdateView):
+class TeamUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
     success_url = reverse_lazy('manager:team-list')
 
 
-class TeamDeleteView(generic.DeleteView):
+class TeamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "manager.view_team"
     model = Team
     success_url = reverse_lazy('manager:team-list')
