@@ -2,12 +2,19 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div>
     <h1>Workers List
       <a href="{% url 'manager:worker-create' %}" class="btn btn-primary link-to-page">
         Create
       </a>
     </h1>
+    <br>
+
+    <form method="get" action="" class="form-inline">
+      {{ search_form|crispy }}
+      <input type="submit" value="Search" class="btn btn-secondary">
+    </form>
+
     <br>
     <table class="table table-striped">
       <thead>
