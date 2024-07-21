@@ -7,6 +7,7 @@ from .models import (
     TaskType,
     Tag,
     Position,
+    Team,
 )
 
 
@@ -49,3 +50,4 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(TaskType)
 admin.site.register(Tag)
 admin.site.register(Position)
+admin.site.register(Team)
