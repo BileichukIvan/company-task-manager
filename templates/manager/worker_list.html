@@ -4,9 +4,11 @@
 {% block content %}
   <div>
     <h1>Workers List
-      <a href="{% url 'manager:worker-create' %}" class="btn btn-primary link-to-page">
-        Create
-      </a>
+      {% if perms.manager.add_worker %}
+        <a href="{% url 'manager:worker-create' %}" class="btn btn-primary link-to-page">
+          Create
+        </a>
+      {% endif %}
     </h1>
     <br>
 

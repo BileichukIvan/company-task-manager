@@ -2,15 +2,20 @@
 {% load crispy_forms_filters %}
 
 {% block content %}
-  <div class="container mt-5">
+  <div>
     <h1>Worker Detail</h1>
+    <br>
     {{ worker.model }}
-    <a href="{% url 'manager:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-    <a href="{% url 'manager:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
-      Update
-    </a>
+    {% if perms.manager.delete_worker %}
+      <a href="{% url 'manager:worker-delete' pk=worker.id %}" class="btn btn-danger link-to-page">
+        Delete
+      </a>
+    {% endif %}
+    {% if perms.manager.update_worker %}
+      <a href="{% url 'manager:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+        Update
+      </a>
+    {% endif %}
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ worker.username }}</h5>

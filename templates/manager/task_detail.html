@@ -3,12 +3,15 @@
 {% block content %}
   <h1>Task Detail</h1>
   {{ task.model }}
-  <a href="{% url 'manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
-    Delete
-  </a>
+  {% if perms.manager.delete_worker %}
+    <a href="{% url 'manager:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+  {% endif %}
   <a href="{% url 'manager:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
     Update
   </a>
+  <br>
   <div class="task-detail">
     <h2>{{ task.name }}</h2>
     <p><strong>Description:</strong> {{ task.description }}</p>
