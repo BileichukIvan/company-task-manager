@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
+from django.db.models import Q
 
 from .models import (
     Task,
@@ -41,10 +42,11 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
-        name = self.request.GET.get("name", "")
+        query = self.request.GET.get("query", "")
+        show_my_tasks = self.request.GET.get("show_my_tasks", "")
 
         context["search_form"] = TaskSearchForm(
-            initial={"name": name}
+            initial={"query": query, "show_my_tasks": show_my_tasks}
         )
         return context
 
@@ -53,9 +55,17 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            query = form.cleaned_data.get("query")
+            show_my_tasks = form.cleaned_data.get("show_my_tasks")
+
+            if query:
+                queryset = queryset.filter(
+                    Q(name__icontains=query) | Q(project__name__icontains=query)
+                )
+
+            if show_my_tasks:
+                queryset = queryset.filter(assigned=self.request.user)
+
         return queryset
 
 

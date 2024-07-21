@@ -17,15 +17,19 @@ class TaskForm(forms.ModelForm):
 
 
 class TaskSearchForm(forms.Form):
-    name = forms.CharField(
+    query = forms.CharField(
         max_length=64,
         required=False,
         label="",
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Search by name"
+                "placeholder": "Task or project"
             }
         )
+    )
+    show_my_tasks = forms.BooleanField(
+        required=False,
+        label="Show my tasks"
     )
 
 
