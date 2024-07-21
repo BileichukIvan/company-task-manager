@@ -8,21 +8,13 @@
       <thead>
       <tr>
         <th>Name</th>
-        <th>Members</th>
         <th>Projects</th>
       </tr>
       </thead>
       <tbody>
       {% for team in team_list %}
         <tr>
-          <td>{{ team.name }}</td>
-          <td>
-            {% for member in team.members.all %}
-              {{ member.first_name }} {{ member.last_name }}{% if not forloop.last %}, {% endif %}
-            {% empty %}
-              No members
-            {% endfor %}
-          </td>
+          <td><a href={% url 'manager:team-detail' pk=team.id %}>{{ team.name }}</a></td>
           <td>
             {% for project in team.project.all %}
               {{ project.name }}{% if not forloop.last %}, {% endif %}

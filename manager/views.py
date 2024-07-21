@@ -149,7 +149,10 @@ class WorkerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upda
     success_url = reverse_lazy("manager:worker-list")
 
 
-class TeamsListView(generic.ListView):
+class TeamsListView(LoginRequiredMixin, generic.ListView):
     model = Team
-    template_name = "team_list.html"
     paginate_by = 5
+
+
+class TeamDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Team

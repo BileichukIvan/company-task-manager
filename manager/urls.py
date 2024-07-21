@@ -13,6 +13,7 @@ from .views import (
     WorkerDeleteView,
     WorkerUpdateView,
     TeamsListView,
+    TeamDetailView,
 )
 
 urlpatterns = [
@@ -75,6 +76,11 @@ urlpatterns = [
         "teams/",
         TeamsListView.as_view(),
         name="team-list",
+    ),
+    path(
+        "teams/<int:pk>/",
+        TeamDetailView.as_view(),
+        name="team-detail"
     ),
 ]
 
