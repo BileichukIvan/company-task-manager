@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Teams List</h1>
+  <br>
+
+  {% if team_list %}
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Members</th>
+        <th>Projects</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for team in team_list %}
+        <tr>
+          <td>{{ team.name }}</td>
+          <td>
+            {% for member in team.members.all %}
+              {{ member.first_name }} {{ member.last_name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No members
+            {% endfor %}
+          </td>
+          <td>
+            {% for project in team.project.all %}
+              {{ project.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No projects
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No teams available.</p>
+  {% endif %}
+{% endblock %}

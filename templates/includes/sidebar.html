@@ -1,6 +1,6 @@
 <ul class="sidebar-nav list-group">
   {% if user.is_authenticated %}
-    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item">User: {{ user.get_username }}</li>
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-primary">Logout</button>
@@ -12,7 +12,7 @@
   <br>
 
   <li class="list-group-item"><a href="{% url 'manager:index' %}">Home</a></li>
-  <li class="list-group-item"><a href="{% url 'manager:task-list' %}">All tasks</a></li>
-  <li class="list-group-item"><a href="{% url 'manager:worker-list' %}">All workers</a></li>
-  {#  <li class="list-group-item"><a href="{% url 'taxi:manufacturer-list' %}">All manufacturers</a></li>#}
+  <li class="list-group-item"><a href="{% url 'manager:task-list' %}">Tasks</a></li>
+  <li class="list-group-item"><a href="{% url 'manager:worker-list' %}">Workers</a></li>
+  <li class="list-group-item"><a href="{% url 'manager:team-list' %}">Teams</a></li>
 </ul>

@@ -147,3 +147,9 @@ class WorkerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Upda
     model = Worker
     form_class = WorkerForm
     success_url = reverse_lazy("manager:worker-list")
+
+
+class TeamsListView(generic.ListView):
+    model = Team
+    template_name = "team_list.html"
+    paginate_by = 5
