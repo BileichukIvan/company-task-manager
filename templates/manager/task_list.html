@@ -17,15 +17,27 @@
   
   <br>
   {% if task_list %}
-    <ul>
-      {% for task in task_list %}
-        <li>
-          <a href="{% url "manager:task-detail" pk=task.id %}">{{ task.id }}</a>
-          {{ task.name }} ({{ task.is_completed }})
-        </li>
-      {% endfor %}
-    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Completed</th>
+          <th>Priority</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in task_list %}
+          <tr>
+            <td><a href="{% url 'manager:task-detail' pk=task.id %}">{{ task.name }}</a></td>
+            <td>{{ task.is_completed }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.deadline }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
-    <p>There are no cars in taxi</p>
+    <p>There are no tasks available.</p>
   {% endif %}
 {% endblock %}
