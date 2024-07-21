@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Task, Worker
+from .models import (
+    Task,
+    Worker,
+    Team
+)
 
 
 class TaskForm(forms.ModelForm):
@@ -66,3 +70,13 @@ class WorkerSearchForm(forms.Form):
             }
         )
     )
+
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ["name", "members", "project"]
+        widgets = {
+            "members": forms.CheckboxSelectMultiple,
+            "project": forms.CheckboxSelectMultiple,
+        }

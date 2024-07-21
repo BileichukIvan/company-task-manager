@@ -17,6 +17,7 @@ from .forms import (
     WorkerCreationForm,
     WorkerForm,
     WorkerSearchForm,
+    TeamForm,
 )
 
 
@@ -156,3 +157,20 @@ class TeamsListView(LoginRequiredMixin, generic.ListView):
 
 class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
+
+
+class TeamCreateView(generic.CreateView):
+    model = Team
+    form_class = TeamForm
+    success_url = reverse_lazy('manager:team-list')
+
+
+class TeamUpdateView(generic.UpdateView):
+    model = Team
+    form_class = TeamForm
+    success_url = reverse_lazy('manager:team-list')
+
+
+class TeamDeleteView(generic.DeleteView):
+    model = Team
+    success_url = reverse_lazy('manager:team-list')
