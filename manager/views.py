@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views import generic, View
+from django.views import generic
 from django.urls import reverse_lazy
 from django.db.models import Q
 
@@ -123,7 +123,7 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 
 class TaskDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
-    permission_required = "manager.view_task_delete"
+    permission_required = "manager.view_task"
     model = Task
     success_url = reverse_lazy("manager:task-list")
 
