@@ -11,6 +11,7 @@ from .models import (
     Project,
     Team,
     Tag,
+    Position,
 )
 from .forms import (
     TaskForm,
@@ -21,6 +22,7 @@ from .forms import (
     TeamForm,
     TeamSearchForm,
     TagForm,
+    PositionForm,
 )
 
 
@@ -246,3 +248,28 @@ class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteV
     permission_required = "manager.view_tag"
     model = Tag
     success_url = reverse_lazy("manager:tag-list")
+
+
+class PositionListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+    permission_required = "manager.view_position"
+    model = Position
+
+
+class PositionCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = "manager.view_position"
+    model = Position
+    form_class = PositionForm
+    success_url = reverse_lazy("manager:position-list")
+
+
+class PositionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "manager.view_position"
+    model = Position
+    form_class = PositionForm
+    success_url = reverse_lazy("manager:position-list")
+
+
+class PositionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "manager.view_position"
+    model = Position
+    success_url = reverse_lazy("manager:position-list")

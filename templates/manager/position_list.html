@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Position List</h1>
+  <a href="{% url 'manager:position-create' %}" class="btn btn-primary">Create Position</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for position in object_list %}
+        <tr>
+          <td>{{ position.name }}</td>
+          <td>
+            <a href="{% url 'manager:position-update' pk=position.id %}" class="btn btn-warning btn-sm">Update</a>
+            <a href="{% url 'manager:position-delete' pk=position.id %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
