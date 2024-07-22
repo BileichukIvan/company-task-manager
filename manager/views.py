@@ -10,6 +10,7 @@ from .models import (
     Worker,
     Project,
     Team,
+    Tag,
 )
 from .forms import (
     TaskForm,
@@ -18,7 +19,8 @@ from .forms import (
     WorkerForm,
     WorkerSearchForm,
     TeamForm,
-    TeamSearchForm
+    TeamSearchForm,
+    TagForm,
 )
 
 
@@ -205,17 +207,42 @@ class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Create
     permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
-    success_url = reverse_lazy('manager:team-list')
+    success_url = reverse_lazy("manager:team-list")
 
 
 class TeamUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
     permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
-    success_url = reverse_lazy('manager:team-list')
+    success_url = reverse_lazy("manager:team-list")
 
 
 class TeamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
     permission_required = "manager.view_team"
     model = Team
-    success_url = reverse_lazy('manager:team-list')
+    success_url = reverse_lazy("manager:team-list")
+    
+
+class TagListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+    permission_required = "manager.view_tag"
+    model = Tag
+
+
+class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = "manager.view_tag"
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy("manager:tag-list")
+
+
+class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "manager.view_tag"
+    model = Tag
+    form_class = TagForm
+    success_url = reverse_lazy("manager:tag-list")
+
+
+class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "manager.view_tag"
+    model = Tag
+    success_url = reverse_lazy("manager:tag-list")

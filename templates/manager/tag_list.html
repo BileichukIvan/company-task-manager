@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tag List</h1>
+  <a href="{% url 'manager:tag-create' %}" class="btn btn-primary">Create Tag</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in object_list %}
+        <tr>
+          <td>{{ tag.name }}</td>
+          <td>
+            <a href="{% url 'manager:tag-update' pk=tag.id %}" class="btn btn-warning btn-sm">Update</a>
+            <a href="{% url 'manager:tag-delete' pk=tag.id %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

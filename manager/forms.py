@@ -1,9 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+
 from .models import (
     Task,
     Worker,
-    Team
+    Team,
+    Tag,
+    Position,
 )
 
 
@@ -93,3 +96,15 @@ class TeamSearchForm(forms.Form):
             }
         )
     )
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name"]
+
+
+class PositionForm(forms.ModelForm):
+    class Meta:
+        model = Position
+        fields = ["name"]
