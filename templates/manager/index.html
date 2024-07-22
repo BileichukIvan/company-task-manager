@@ -25,7 +25,7 @@
     <tbody>
     {% for project in projects %}
       <tr>
-        <td><a href="{% url 'manager:task-list' %}?query={{ project.name }}">{{ project.name }}</a></td>
+        <td><a href="{% url 'manager:task-list' %}?query={{ project.name }}&show_my_tasks=on">{{ project.name }}</a></td>
         <td>{{ project.description }}</td>
       </tr>
     {% empty %}
