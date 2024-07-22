@@ -1,7 +1,15 @@
 from django.test import TestCase
-from manager.models import TaskType, Position, Tag, Project, Team, Task
 from django.contrib.auth import get_user_model
 from datetime import date
+
+from manager.models import (
+    TaskType,
+    Position,
+    Tag,
+    Project,
+    Team,
+    Task,
+)
 
 User = get_user_model()
 
