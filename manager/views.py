@@ -1,9 +1,12 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin
+)
 
 from .models import (
     Task,
@@ -66,7 +69,8 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
             if query:
                 queryset = queryset.filter(
-                    Q(name__icontains=query) | Q(project__name__icontains=query)
+                    Q(name__icontains=query)
+                    | Q(project__name__icontains=query)
                 )
 
             if show_my_tasks:
@@ -82,12 +86,10 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
         context = super().get_context_data(**kwargs)
         task = self.get_object()
         user = self.request.user
-        context["can_complete"] = (
-                not task.is_completed and
-                (
-                    user in task.assigned.all() or user.is_superuser
-                )
-        )
+        context["can_complete"] = (not task.is_completed
+                                   and (user in task.assigned.all()
+                                        or user.is_superuser)
+                                   )
         return context
 
 
@@ -122,7 +124,11 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:task-list")
 
 
-class TaskDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class TaskDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView)\
+        :
     permission_required = "manager.view_task"
     model = Task
     success_url = reverse_lazy("manager:task-list")
@@ -157,20 +163,32 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
 
 
-class WorkerCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class WorkerCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.CreateView
+):
     permission_required = "manager.view_worker"
     model = Worker
     success_url = reverse_lazy("manager:worker-list")
     form_class = WorkerCreationForm
 
 
-class WorkerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class WorkerDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_worker"
     model = Worker
     success_url = reverse_lazy("manager:worker-list")
 
 
-class WorkerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class WorkerUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.UpdateView
+):
     permission_required = "manager.view_worker"
     model = Worker
     form_class = WorkerForm
@@ -205,71 +223,115 @@ class TeamDetailView(LoginRequiredMixin, generic.DetailView):
     model = Team
 
 
-class TeamCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class TeamCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.CreateView
+):
     permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
     success_url = reverse_lazy("manager:team-list")
 
 
-class TeamUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class TeamUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.UpdateView
+):
     permission_required = "manager.view_team"
     model = Team
     form_class = TeamForm
     success_url = reverse_lazy("manager:team-list")
 
 
-class TeamDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class TeamDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_team"
     model = Team
     success_url = reverse_lazy("manager:team-list")
-    
 
-class TagListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+
+class TagListView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.ListView
+):
     permission_required = "manager.view_tag"
     model = Tag
 
 
-class TagCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class TagCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.CreateView
+):
     permission_required = "manager.view_tag"
     model = Tag
     form_class = TagForm
     success_url = reverse_lazy("manager:tag-list")
 
 
-class TagUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class TagUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.UpdateView
+):
     permission_required = "manager.view_tag"
     model = Tag
     form_class = TagForm
     success_url = reverse_lazy("manager:tag-list")
 
 
-class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class TagDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_tag"
     model = Tag
     success_url = reverse_lazy("manager:tag-list")
 
 
-class PositionListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class PositionListView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.ListView
+):
     permission_required = "manager.view_position"
     model = Position
 
 
-class PositionCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class PositionCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.CreateView
+):
     permission_required = "manager.view_position"
     model = Position
     form_class = PositionForm
     success_url = reverse_lazy("manager:position-list")
 
 
-class PositionUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class PositionUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.UpdateView
+):
     permission_required = "manager.view_position"
     model = Position
     form_class = PositionForm
     success_url = reverse_lazy("manager:position-list")
 
 
-class PositionDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class PositionDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_position"
     model = Position
     success_url = reverse_lazy("manager:position-list")

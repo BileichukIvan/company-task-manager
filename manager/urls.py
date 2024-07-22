@@ -21,7 +21,11 @@ from .views import (
     TagListView,
     TagCreateView,
     TagUpdateView,
-    TagDeleteView, PositionListView, PositionCreateView, PositionUpdateView, PositionDeleteView,
+    TagDeleteView,
+    PositionListView,
+    PositionCreateView,
+    PositionUpdateView,
+    PositionDeleteView,
 )
 
 urlpatterns = [
