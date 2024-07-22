@@ -39,6 +39,15 @@
       {% endif %}
     </p>
   </div>
+
+  {% if can_complete %}
+    <form method="post" action="{% url 'manager:task-complete' pk=task.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success">Complete Task</button>
+    </form>
+  {% endif %}
+  <br>
+  
   <a href="{% url 'manager:task-list' %}" class="btn btn-primary link-to-page">
     Back to Task List
   </a>

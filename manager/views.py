@@ -1,8 +1,8 @@
-from django.views import generic
-from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.views import generic, View
+from django.urls import reverse_lazy
 from django.db.models import Q
 
 from .models import (
@@ -74,6 +74,18 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task = self.get_object()
+        user = self.request.user
+        context["can_complete"] = (
+                not task.is_completed and
+                (
+                    user in task.assigned.all() or user.is_superuser
+                )
+        )
+        return context
+
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
@@ -83,11 +95,21 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
 
-        assigned_workers = form.cleaned_data.get('assigned', [])
+        assigned_workers = form.cleaned_data.get("assigned", [])
         if assigned_workers:
             self.object.assigned.set(assigned_workers)
 
         return response
+
+
+class TaskCompleteView(LoginRequiredMixin, generic.View):
+    @staticmethod
+    def post(request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        if request.user in task.assigned.all() or request.user.is_superuser:
+            task.is_completed = True
+            task.save()
+        return redirect("manager:task-detail", pk=pk)
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
