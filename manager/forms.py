@@ -80,3 +80,16 @@ class TeamForm(forms.ModelForm):
             "members": forms.CheckboxSelectMultiple,
             "project": forms.CheckboxSelectMultiple,
         }
+
+
+class TeamSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=64,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by team name"
+            }
+        )
+    )

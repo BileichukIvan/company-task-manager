@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% load crispy_forms_filters %}
   <h1>
     Teams List
     {% if perms.manager.add_team %}
@@ -8,6 +9,13 @@
       </a>
     {% endif %}
   </h1>
+  <br>
+
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="Search" class="btn btn-secondary">
+  </form>
+
   <br>
 
   {% if team_list %}
