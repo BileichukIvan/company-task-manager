@@ -2,6 +2,7 @@
 <ul class="sidebar-nav list-group">
   {% if user.is_authenticated %}
     <li class="list-group-item">User: {{ user.get_username }}</li>
+    <br>
     <form method="post" action="{% url 'logout' %}">
       {% csrf_token %}
       <button type="submit" class="btn btn-primary">Logout</button>
