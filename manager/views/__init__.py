@@ -19,6 +19,7 @@ from manager.views.team_views import (
     TeamCreateView,
     TeamDeleteView,
     TeamUpdateView,
+    TeamDetailView,
 )
 from manager.views.tag_views import (
     TagListView,
