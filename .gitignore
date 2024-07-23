@@ -1,4 +1,6 @@
 .idea
-.venv
-**__pycache__
+.venv/
+**/__pycache__/
 .flake8
+db.sqlite3
+*.pyc

@@ -1,2 +1,6 @@
-django==5.0.7
+Django==5.0.7
+crispy-bootstrap4==2024.1
 django-crispy-forms==2.2
+sqlparse==0.5.1
+asgiref==3.8.1
+flake8==7.1.0
