@@ -36,7 +36,10 @@ class BaseTestCase(TestCase):
             email="john.doe@example.com",
             position=self.position
         )
-        self.project = Project.objects.create(name="Project X", description="Test Project")
+        self.project = Project.objects.create(
+            name="Project X",
+            description="Test Project"
+        )
         self.task_type = TaskType.objects.create(name="Bug")
         self.task = Task.objects.create(
             name="Test Task",
@@ -85,7 +88,10 @@ class TaskListViewTest(BaseTestCase):
 
 class TaskDetailViewTest(BaseTestCase):
     def test_task_detail_view(self):
-        response = self.client.get(reverse("manager:task-detail", kwargs={"pk": self.task.pk}))
+        response = self.client.get(reverse(
+            "manager:task-detail",
+            kwargs={"pk": self.task.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/task_detail.html")
         self.assertIn("can_complete", response.context)
@@ -96,7 +102,10 @@ class TaskCompleteViewTest(BaseTestCase):
     def test_task_complete_view(self):
         self.task.assigned.add(self.worker)
         self.client.login(username="worker", password="password")
-        response = self.client.post(reverse("manager:task-complete", kwargs={"pk": self.task.pk}))
+        response = self.client.post(reverse(
+            "manager:task-complete",
+            kwargs={"pk": self.task.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.task.refresh_from_db()
         self.assertTrue(self.task.is_completed)
@@ -105,9 +114,15 @@ class TaskCompleteViewTest(BaseTestCase):
 class TaskDeleteViewTest(BaseTestCase):
     def test_task_delete_view(self):
         self.get_permission("view_task")
-        response = self.client.get(reverse("manager:task-delete", kwargs={"pk": self.task.pk}))
+        response = self.client.get(reverse(
+            "manager:task-delete",
+            kwargs={"pk": self.task.pk}
+        ))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse("manager:task-delete", kwargs={"pk": self.task.pk}))
+        response = self.client.post(reverse(
+            "manager:task-delete",
+            kwargs={"pk": self.task.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(pk=self.task.pk).exists())
 
@@ -123,18 +138,27 @@ class WorkerListViewTest(BaseTestCase):
 
 class WorkerDetailViewTest(BaseTestCase):
     def test_worker_detail_view(self):
-        response = self.client.get(reverse("manager:worker-detail", kwargs={"pk": self.worker.pk}))
+        response = self.client.get(reverse(
+            "manager:worker-detail",
+            kwargs={"pk": self.worker.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/worker_detail.html")
         self.assertContains(response, self.worker.username)
-        
+
 
 class WorkerDeleteViewTest(BaseTestCase):
     def test_worker_delete_view(self):
         self.get_permission("view_worker")
-        response = self.client.get(reverse("manager:worker-delete", kwargs={"pk": self.worker.pk}))
+        response = self.client.get(reverse(
+            "manager:worker-delete",
+            kwargs={"pk": self.worker.pk}
+        ))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse("manager:worker-delete", kwargs={"pk": self.worker.pk}))
+        response = self.client.post(reverse(
+            "manager:worker-delete",
+            kwargs={"pk": self.worker.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Worker.objects.filter(pk=self.worker.pk).exists())
 
@@ -142,7 +166,10 @@ class WorkerDeleteViewTest(BaseTestCase):
 class WorkerUpdateViewTest(BaseTestCase):
     def test_worker_update_view(self):
         self.get_permission("view_worker")
-        response = self.client.get(reverse("manager:worker-update", kwargs={"pk": self.worker.pk}))
+        response = self.client.get(reverse(
+            "manager:worker-update",
+            kwargs={"pk": self.worker.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/worker_form.html")
         form_data = {
@@ -152,7 +179,11 @@ class WorkerUpdateViewTest(BaseTestCase):
             "email": "john.doe@example.com",
             "position": self.position.id,
         }
-        response = self.post_create_update_form("manager:worker-update", form_data, {"pk": self.worker.pk})
+        response = self.post_create_update_form(
+            "manager:worker-update",
+            form_data,
+            {"pk": self.worker.pk}
+        )
         self.assertEqual(response.status_code, 302)
         self.worker.refresh_from_db()
         self.assertEqual(self.worker.username, "updatedworker")
@@ -169,7 +200,10 @@ class TeamListViewTest(BaseTestCase):
 
 class TeamDetailViewTest(BaseTestCase):
     def test_team_detail_view(self):
-        response = self.client.get(reverse("manager:team-detail", kwargs={"pk": self.team.pk}))
+        response = self.client.get(reverse(
+            "manager:team-detail",
+            kwargs={"pk": self.team.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/team_detail.html")
         self.assertContains(response, self.team.name)
@@ -186,16 +220,25 @@ class TeamCreateViewTest(BaseTestCase):
             "members": [self.worker.id],
             "project": [self.project.id],
         }
-        response = self.post_create_update_form("manager:team-create", form_data)
+        response = self.post_create_update_form(
+            "manager:team-create",
+            form_data
+        )
         self.assert_redirects_and_exists(response, Team, "New Team")
 
 
 class TeamDeleteViewTest(BaseTestCase):
     def test_team_delete_view(self):
         self.get_permission("view_team")
-        response = self.client.get(reverse("manager:team-delete", kwargs={"pk": self.team.pk}))
+        response = self.client.get(reverse(
+            "manager:team-delete",
+            kwargs={"pk": self.team.pk}
+        ))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse("manager:team-delete", kwargs={"pk": self.team.pk}))
+        response = self.client.post(reverse(
+            "manager:team-delete",
+            kwargs={"pk": self.team.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Team.objects.filter(pk=self.team.pk).exists())
 
@@ -203,7 +246,10 @@ class TeamDeleteViewTest(BaseTestCase):
 class TeamUpdateViewTest(BaseTestCase):
     def test_team_update_view(self):
         self.get_permission("view_team")
-        response = self.client.get(reverse("manager:team-update", kwargs={"pk": self.team.pk}))
+        response = self.client.get(reverse(
+            "manager:team-update",
+            kwargs={"pk": self.team.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/team_form.html")
         form_data = {
@@ -211,7 +257,11 @@ class TeamUpdateViewTest(BaseTestCase):
             "members": [self.worker.id],
             "project": [self.project.id],
         }
-        response = self.post_create_update_form("manager:team-update", form_data, {"pk": self.team.pk})
+        response = self.post_create_update_form(
+            "manager:team-update",
+            form_data,
+            {"pk": self.team.pk}
+        )
         self.assertEqual(response.status_code, 302)
         self.team.refresh_from_db()
         self.assertEqual(self.team.name, "Updated Team")
@@ -235,16 +285,25 @@ class TagCreateViewTest(BaseTestCase):
         form_data = {
             "name": "New Tag",
         }
-        response = self.post_create_update_form("manager:tag-create", form_data)
+        response = self.post_create_update_form(
+            "manager:tag-create",
+            form_data
+        )
         self.assert_redirects_and_exists(response, Tag, "New Tag")
 
 
 class TagDeleteViewTest(BaseTestCase):
     def test_tag_delete_view(self):
         self.get_permission("view_tag")
-        response = self.client.get(reverse("manager:tag-delete", kwargs={"pk": self.tag.pk}))
+        response = self.client.get(reverse(
+            "manager:tag-delete",
+            kwargs={"pk": self.tag.pk}
+        ))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse("manager:tag-delete", kwargs={"pk": self.tag.pk}))
+        response = self.client.post(reverse(
+            "manager:tag-delete",
+            kwargs={"pk": self.tag.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Tag.objects.filter(pk=self.tag.pk).exists())
 
@@ -252,13 +311,20 @@ class TagDeleteViewTest(BaseTestCase):
 class TagUpdateViewTest(BaseTestCase):
     def test_tag_update_view(self):
         self.get_permission("view_tag")
-        response = self.client.get(reverse("manager:tag-update", kwargs={"pk": self.tag.pk}))
+        response = self.client.get(reverse(
+            "manager:tag-update",
+            kwargs={"pk": self.tag.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/tag_form.html")
         form_data = {
             "name": "Updated Tag",
         }
-        response = self.post_create_update_form("manager:tag-update", form_data, {"pk": self.tag.pk})
+        response = self.post_create_update_form(
+            "manager:tag-update",
+            form_data,
+            {"pk": self.tag.pk}
+        )
         self.assertEqual(response.status_code, 302)
         self.tag.refresh_from_db()
         self.assertEqual(self.tag.name, "Updated Tag")
@@ -282,16 +348,25 @@ class PositionCreateViewTest(BaseTestCase):
         form_data = {
             "name": "New Position",
         }
-        response = self.post_create_update_form("manager:position-create", form_data)
+        response = self.post_create_update_form(
+            "manager:position-create",
+            form_data
+        )
         self.assert_redirects_and_exists(response, Position, "New Position")
 
 
 class PositionDeleteViewTest(BaseTestCase):
     def test_position_delete_view(self):
         self.get_permission("view_position")
-        response = self.client.get(reverse("manager:position-delete", kwargs={"pk": self.position.pk}))
+        response = self.client.get(reverse(
+            "manager:position-delete",
+            kwargs={"pk": self.position.pk}
+        ))
         self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse("manager:position-delete", kwargs={"pk": self.position.pk}))
+        response = self.client.post(reverse(
+            "manager:position-delete",
+            kwargs={"pk": self.position.pk}
+        ))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Position.objects.filter(pk=self.position.pk).exists())
 
@@ -299,13 +374,20 @@ class PositionDeleteViewTest(BaseTestCase):
 class PositionUpdateViewTest(BaseTestCase):
     def test_position_update_view(self):
         self.get_permission("view_position")
-        response = self.client.get(reverse("manager:position-update", kwargs={"pk": self.position.pk}))
+        response = self.client.get(reverse(
+            "manager:position-update",
+            kwargs={"pk": self.position.pk}
+        ))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "manager/position_form.html")
         form_data = {
             "name": "Updated Position",
         }
-        response = self.post_create_update_form("manager:position-update", form_data, {"pk": self.position.pk})
+        response = self.post_create_update_form(
+            "manager:position-update",
+            form_data,
+            {"pk": self.position.pk}
+        )
         self.assertEqual(response.status_code, 302)
         self.position.refresh_from_db()
         self.assertEqual(self.position.name, "Updated Position")

@@ -1,9 +1,16 @@
 from django.views import generic
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
-from ..models import Worker
-from ..forms import WorkerCreationForm, WorkerForm, WorkerSearchForm
+from manager.models import Worker
+from manager.forms import (
+    WorkerCreationForm,
+    WorkerForm,
+    WorkerSearchForm,
+)
 
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
@@ -15,7 +22,9 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         context = super(WorkerListView, self).get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
 
-        context["search_form"] = WorkerSearchForm(initial={"username": username})
+        context["search_form"] = WorkerSearchForm(
+            initial={"username": username}
+        )
         return context
 
     def get_queryset(self):
@@ -23,7 +32,9 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         form = WorkerSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(username__icontains=form.cleaned_data["username"])
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
         return queryset
 
 
@@ -31,20 +42,32 @@ class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
 
 
-class WorkerCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class WorkerCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.CreateView
+):
     permission_required = "manager.view_worker"
     model = Worker
     success_url = reverse_lazy("manager:worker-list")
     form_class = WorkerCreationForm
 
 
-class WorkerDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class WorkerDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_worker"
     model = Worker
     success_url = reverse_lazy("manager:worker-list")
 
 
-class WorkerUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class WorkerUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.UpdateView
+):
     permission_required = "manager.view_worker"
     model = Worker
     form_class = WorkerForm

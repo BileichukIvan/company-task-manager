@@ -26,7 +26,10 @@ class FormTestCase(TestCase):
         # Set up initial data for tests.
         self.task_type = TaskType.objects.create(name="Bug")
         self.position = Position.objects.create(name="Developer")
-        self.project = Project.objects.create(name="Project X", description="Test Project")
+        self.project = Project.objects.create(
+            name="Project X",
+            description="Test Project"
+        )
         self.worker = Worker.objects.create_user(
             username="worker",
             password="password",

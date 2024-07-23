@@ -1,11 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
-from ..models import Task
-from ..forms import TaskForm, TaskSearchForm
+from manager.models import Task, Project
+from manager.forms import TaskForm, TaskSearchForm
+
 
 @login_required
 def index(request):
@@ -45,11 +50,14 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
             if query:
                 queryset = queryset.filter(
-                    Q(name__icontains=query) | Q(project__name__icontains=query)
+                    Q(name__icontains=query)
+                    | Q(project__name__icontains=query)
                 )
 
             if show_my_tasks:
-                queryset = queryset.filter(assigned=self.request.user)
+                queryset = queryset.filter(
+                    assigned=self.request.user
+                )
 
         return queryset
 
@@ -62,7 +70,8 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
         task = self.get_object()
         user = self.request.user
         context["can_complete"] = (
-            not task.is_completed and (user in task.assigned.all() or user.is_superuser)
+            not task.is_completed
+            and (user in task.assigned.all() or user.is_superuser)
         )
         return context
 
@@ -98,7 +107,11 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("manager:task-list")
 
 
-class TaskDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class TaskDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    generic.DeleteView
+):
     permission_required = "manager.view_task"
     model = Task
     success_url = reverse_lazy("manager:task-list")
