@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import (
+from manager.models import (
     Task,
     Worker,
     Team,
@@ -20,6 +20,9 @@ class TaskForm(forms.ModelForm):
         widgets = {
             "assigned": forms.CheckboxSelectMultiple,
             "tags": forms.CheckboxSelectMultiple,
+            "deadline": forms.DateInput(
+                attrs={"type": "date",
+                       "class": "form-control"}),
         }
 
 

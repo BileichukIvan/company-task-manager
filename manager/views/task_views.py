@@ -46,7 +46,6 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
         if form.is_valid():
             query = form.cleaned_data.get("query")
-            show_my_tasks = form.cleaned_data.get("show_my_tasks")
 
             if query:
                 queryset = queryset.filter(
@@ -54,10 +53,8 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
                     | Q(project__name__icontains=query)
                 )
 
-            if show_my_tasks:
-                queryset = queryset.filter(
-                    assigned=self.request.user
-                )
+            if show_my_tasks := form.cleaned_data.get("show_my_tasks"):
+                queryset = queryset.filter(assigned=self.request.user)
 
         return queryset
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from manager.models import (
+from company_task_manager.manager.models import (
     Worker,
     Team,
     Tag,
@@ -8,7 +8,7 @@ from manager.models import (
     TaskType,
     Project,
 )
-from manager.forms import (
+from company_task_manager.manager.forms import (
     TaskForm,
     TaskSearchForm,
     WorkerCreationForm,

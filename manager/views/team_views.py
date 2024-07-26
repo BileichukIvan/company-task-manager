@@ -6,7 +6,10 @@ from django.contrib.auth.mixins import (
 )
 
 from manager.models import Team
-from manager.forms import TeamForm, TeamSearchForm
+from manager.forms import (
+    TeamForm,
+    TeamSearchForm,
+)
 
 
 class TeamsListView(LoginRequiredMixin, generic.ListView):

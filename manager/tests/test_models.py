@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from datetime import date
 
-from manager.models import (
+from company_task_manager.manager.models import (
     TaskType,
     Position,
     Tag,

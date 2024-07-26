@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from datetime import datetime, timedelta
 
-from manager.models import (
+from company_task_manager.manager.models import (
     Task,
     Worker,
     Project,
