@@ -1,0 +1,26 @@
+{% load crispy_forms_filters %}
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: {{ user.get_username }}</li>
+    <br>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+  {% else %}
+    <li class="list-group-item"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+  {% endif %}
+
+  <br>
+
+  <li class="list-group-item"><a href="{% url 'manager:index' %}">Home</a></li>
+  <li class="list-group-item"><a href="{% url 'manager:task-list' %}">Tasks</a></li>
+  <li class="list-group-item"><a href="{% url 'manager:worker-list' %}">Workers</a></li>
+  <li class="list-group-item"><a href="{% url 'manager:team-list' %}">Teams</a></li>
+  {% if perms.manager.add_tag %}
+    <li class="list-group-item"><a href="{% url 'manager:tag-list' %}">Tags</a></li>
+  {% endif %}
+  {% if perms.manager.add_tag %}
+    <li class="list-group-item"><a href="{% url 'manager:position-list' %}">Positions</a></li>
+  {% endif %}
+</ul>

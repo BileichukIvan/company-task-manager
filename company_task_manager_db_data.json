@@ -1,0 +1,335 @@
+[
+    {
+        "model": "manager.tasktype",
+        "pk": 1,
+        "fields": {
+            "name": "Bug"
+        }
+    },
+    {
+        "model": "manager.tasktype",
+        "pk": 2,
+        "fields": {
+            "name": "Feature"
+        }
+    },
+    {
+        "model": "manager.position",
+        "pk": 1,
+        "fields": {
+            "name": "Software Engineer"
+        }
+    },
+    {
+        "model": "manager.position",
+        "pk": 2,
+        "fields": {
+            "name": "Project Manager"
+        }
+    },
+    {
+        "model": "manager.position",
+        "pk": 3,
+        "fields": {
+            "name": "QA Engineer"
+        }
+    },
+    {
+        "model": "manager.position",
+        "pk": 4,
+        "fields": {
+            "name": "DevOps Engineer"
+        }
+    },
+    {
+        "model": "manager.tag",
+        "pk": 1,
+        "fields": {
+            "name": "Urgent"
+        }
+    },
+    {
+        "model": "manager.tag",
+        "pk": 2,
+        "fields": {
+            "name": "Enhancement"
+        }
+    },
+    {
+        "model": "manager.tag",
+        "pk": 3,
+        "fields": {
+            "name": "Bug"
+        }
+    },
+    {
+        "model": "manager.tag",
+        "pk": 4,
+        "fields": {
+            "name": "Low Priority"
+        }
+    },
+    {
+        "model": "manager.project",
+        "pk": 1,
+        "fields": {
+            "name": "Project Alpha",
+            "description": "An innovative project to enhance user experience."
+        }
+    },
+    {
+        "model": "manager.project",
+        "pk": 2,
+        "fields": {
+            "name": "Project Beta",
+            "description": "A project focused on backend improvements."
+        }
+    },
+    {
+        "model": "manager.project",
+        "pk": 3,
+        "fields": {
+            "name": "Project Gamma",
+            "description": "A research project for new technologies."
+        }
+    },
+    {
+        "model": "manager.project",
+        "pk": 4,
+        "fields": {
+            "name": "Project Delta",
+            "description": "An optimization project for existing systems."
+        }
+    },
+    {
+        "model": "manager.team",
+        "pk": 1,
+        "fields": {
+            "name": "Development Team",
+            "members": [1, 2, 3, 4],
+            "project": [1, 2]
+        }
+    },
+    {
+        "model": "manager.team",
+        "pk": 2,
+        "fields": {
+            "name": "QA Team",
+            "members": [5, 6],
+            "project": [3]
+        }
+    },
+    {
+        "model": "manager.team",
+        "pk": 3,
+        "fields": {
+            "name": "Ops Team",
+            "members": [7, 8],
+            "project": [4]
+        }
+    },
+    {
+        "model": "manager.team",
+        "pk": 4,
+        "fields": {
+            "name": "Research Team",
+            "members": [9, 10],
+            "project": [1, 3]
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 1,
+        "fields": {
+            "username": "jdoe",
+            "password": "pbkdf2_sha256$260000$6k4ysld4i0aqbtfyz7l4pl$3B3T2YpDRHG7Qp8UMq9sZf8hhM0aY4OALx5TjR3X9OE4=",
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john.doe@example.com",
+            "position": 1
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 2,
+        "fields": {
+            "username": "asmith",
+            "password": "pbkdf2_sha256$260000$7ty7fTufO6HiUQzYlzzB5F$EXoDC2gUt8OTgU2aPvAPjtpG4rF1DLFpxSxYg/7X",
+            "first_name": "Alice",
+            "last_name": "Smith",
+            "email": "alice.smith@example.com",
+            "position": 2
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 3,
+        "fields": {
+            "username": "bmiller",
+            "password": "pbkdf2_sha256$260000$y8+UE6Gz7ae9GVaEdkftJq$sfOl+I4P1ze2U7XwANpzPj2K8GZ6bqI5Y6JgUk5Lj4H6",
+            "first_name": "Bob",
+            "last_name": "Miller",
+            "email": "bob.miller@example.com",
+            "position": 3
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 4,
+        "fields": {
+            "username": "cjones",
+            "password": "pbkdf2_sha256$260000$B5DQIdmskRI29qepwmx3G1$thojdT2C1Z0MS/xRaFvCv4SkTpThWZB/zrZIxAsnEikA=",
+            "first_name": "Charlie",
+            "last_name": "Jones",
+            "email": "charlie.jones@example.com",
+            "position": 4
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 5,
+        "fields": {
+            "username": "dwhite",
+            "password": "pbkdf2_sha256$260000$rdPsDNJGrVQ0vLmB7hD3c/$5lR4wOCq7JXQjt1ML+a1kP0jlYV3OYtHjHq6JmKM1XqOg=",
+            "first_name": "Diana",
+            "last_name": "White",
+            "email": "diana.white@example.com",
+            "position": 3
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 6,
+        "fields": {
+            "username": "ekim",
+            "password": "pbkdf2_sha256$260000$yHWwN62OZ3P8FLBgt1YX3d$3U7T0WmG4+kp1MGq4H91S4PqA5j0MGE4jt8C5cATDug=",
+            "first_name": "Emily",
+            "last_name": "Kim",
+            "email": "emily.kim@example.com",
+            "position": 4
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 7,
+        "fields": {
+            "username": "flee",
+            "password": "pbkdf2_sha256$260000$R1zBeR9qZ1uo9ZwFnT2YcG$ffoxwUsLJvMfK3Xip2XFBbgPmr6rjZC+6Pr7KMvCx3J0=",
+            "first_name": "Frank",
+            "last_name": "Lee",
+            "email": "frank.lee@example.com",
+            "position": 1
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 8,
+        "fields": {
+            "username": "gstone",
+            "password": "pbkdf2_sha256$260000$y5B8QXy+T1VOyxUtn15aG$2OkeY1drKTY+dSUEwZwX9f4uRSPvXQk8aCR5JwDJHygc=",
+            "first_name": "Grace",
+            "last_name": "Stone",
+            "email": "grace.stone@example.com",
+            "position": 2
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 9,
+        "fields": {
+            "username": "hparker",
+            "password": "pbkdf2_sha256$260000$G+4WB0eDSF1lhRVsyBRb0T$5Svq5COv5v0szAE3LpE2JZc5jJ9tT5l5KoeP9DNhY80=",
+            "first_name": "Hannah",
+            "last_name": "Parker",
+            "email": "hannah.parker@example.com",
+            "position": 3
+        }
+    },
+    {
+        "model": "manager.worker",
+        "pk": 10,
+        "fields": {
+            "username": "ijames",
+            "password": "pbkdf2_sha256$260000$eFEmM6Rr5sBBbr5EYVkmF$2s9TaWB4p2RLK9Bop2f/6+xwJx4vUzTiZKDgnRpmj78=",
+            "first_name": "Isaac",
+            "last_name": "James",
+            "email": "isaac.james@example.com",
+            "position": 4
+        }
+    },
+    {
+        "model": "manager.task",
+        "pk": 6,
+        "fields": {
+            "name": "Design New UI",
+            "description": "Create a new design for the application UI.",
+            "deadline": "2024-08-20",
+            "is_completed": false,
+            "priority": "high",
+            "task_type": 2,
+            "assigned": [1, 5],
+            "tags": [2],
+            "project": 2
+        }
+    },
+    {
+        "model": "manager.task",
+        "pk": 7,
+        "fields": {
+            "name": "Set Up CI/CD Pipeline",
+            "description": "Implement CI/CD pipeline for automated deployments.",
+            "deadline": "2024-09-10",
+            "is_completed": false,
+            "priority": "medium",
+            "task_type": 2,
+            "assigned": [7, 8],
+            "tags": [4],
+            "project": 4
+        }
+    },
+    {
+        "model": "manager.task",
+        "pk": 8,
+        "fields": {
+            "name": "Create API Documentation",
+            "description": "Document the new API endpoints.",
+            "deadline": "2024-09-20",
+            "is_completed": false,
+            "priority": "low",
+            "task_type": 1,
+            "assigned": [4],
+            "tags": [3],
+            "project": 3
+        }
+    },
+    {
+        "model": "manager.task",
+        "pk": 9,
+        "fields": {
+            "name": "Conduct User Research",
+            "description": "Gather user feedback and requirements.",
+            "deadline": "2024-10-01",
+            "is_completed": false,
+            "priority": "urgent",
+            "task_type": 1,
+            "assigned": [2, 6],
+            "tags": [1],
+            "project": 1
+        }
+    },
+    {
+        "model": "manager.task",
+        "pk": 10,
+        "fields": {
+            "name": "Refactor Legacy Code",
+            "description": "Improve and clean up legacy codebase.",
+            "deadline": "2024-10-15",
+            "is_completed": false,
+            "priority": "high",
+            "task_type": 2,
+            "assigned": [3],
+            "tags": [2],
+            "project": 2
+        }
+    }
+]
