@@ -1,5 +1,5 @@
 """
-URL configuration for company_task_manager project.
+URL configuration for core project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -15,8 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-]
+    path("admin/", admin.site.urls),
+    path("", include("manager.urls", namespace="manager")),
+    path("accounts/", include("django.contrib.auth.urls")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+{% load crispy_forms_filters %}
+  <h1>
+    Teams List
+    {% if perms.manager.add_team %}
+      <a href="{% url 'manager:team-create' %}" class="btn btn-primary link-to-page">
+        Create
+      </a>
+    {% endif %}
+  </h1>
+  <br>
+
+  <form method="get" action="" class="form-inline">
+    {{ search_form|crispy }}
+    <input type="submit" value="Search" class="btn btn-secondary">
+  </form>
+
+  <br>
+
+  {% if team_list %}
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Projects</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for team in team_list %}
+        <tr>
+          <td><a href={% url 'manager:team-detail' pk=team.id %}>{{ team.name }}</a></td>
+          <td>
+            {% for project in team.project.all %}
+              {{ project.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No projects
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No teams available.</p>
+  {% endif %}
+{% endblock %}

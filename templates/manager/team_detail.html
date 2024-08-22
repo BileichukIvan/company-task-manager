@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Team Detail
+    
+    {% if perms.manager.delete_team %}
+      <a href="{% url 'manager:team-delete' pk=team.id %}" class="btn btn-danger link-to-page">
+        Delete
+      </a>
+    {% endif %}
+    {% if perms.manager.update_team %}
+      <a href="{% url 'manager:team-update' pk=team.id %}" class="btn btn-secondary link-to-page">
+        Update
+      </a>
+    {% endif %}
+  </h1>
+  <br>
+
+  <h2>{{ team.name }}</h2>
+  <h3>Members:</h3>
+  <ul>
+    {% for member in team.members.all %}
+      <li>{{ member.first_name }} {{ member.last_name }}</li>
+    {% empty %}
+      <li>No members</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Projects:</h3>
+  <ul>
+    {% for project in team.project.all %}
+      <li>{{ project.name }}</li>
+    {% empty %}
+      <li>No projects</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'manager:team-list' %}" class="btn btn-secondary">Back to Teams List</a>
+{% endblock %}

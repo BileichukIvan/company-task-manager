@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>IT company task manager</h1>
+  <p>Welcome to Best Company Ever!</p>
+  <h2>Welcome {{ worker.first_name }}</h2>
+  <h2>Teams</h2>
+  <p>Here is your teams:</p>
+  <ul>
+    {% for team in worker.teams.all %}
+      <li><a href="{% url 'manager:team-list' %}?name={{ team.name }}">{{ team.name }}</a></li>
+    {% empty %}
+      <li>No teams found.</li>
+    {% endfor %}
+  </ul>
+  <h2>Projects</h2>
+  <p>Here is your projects:</p>
+  <table class="table table-bordered mt-3">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for project in projects %}
+      <tr>
+        <td><a href="{% url 'manager:task-list' %}?query={{ project.name }}&show_my_tasks=on">{{ project.name }}</a></td>
+        <td>{{ project.description }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="2">No projects found.</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
